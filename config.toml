@@ -2,17 +2,18 @@ baseURL = "https://h2ck4u.github.io/"
 languageCode = "en-us"
 title = "블로구"
 theme = "slim"
+
 [taxonomies]
   category = "categories"
-  series = "series"
   tag = "tags"
+
 [params]
   Subtitle = "치킨을 좋아하는 개발자"
   GithubID = "h2ck4u"
   # TwitterID = "Your Twitter ID"
   # AnalyticsID = "Your Google Analytics tracking code"
-  # DisqusShortname = "Your Disqus shortname"
+  DisqusShortname = "Jeungeuny"
   Summary = false # takes true or false
   Content = false # takes true or false
   FooterMsg = "Jeungeuny."
-  mainSections = ["posts"]
+  mainSections = ["post"]
