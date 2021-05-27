@@ -1,8 +1,8 @@
 ---
 title: "next/link | Next.js 알아보기 🤔"
 date: 2021-05-27T14:27:45+09:00
-tags: [nextjs]
-categories: [nextjs]
+tags: ["nextjs"]
+categories: ["nextjs"]
 ---
 ### Next.js | \<Link\>는 어떻게 동작할까?
 
