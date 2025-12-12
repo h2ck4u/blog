@@ -1,27 +1,27 @@
 'use client';
 
-import PhotoCard from '@/features/photo/photo-card';
+// import PhotoCard from '@/features/photo/photo-card';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/ui/dialog';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
-export function PhotoModalPage() {
+interface PhotoModalPageProps {
+  id: string;
+}
+
+export function PhotoModalPage({ id }: PhotoModalPageProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const id = searchParams?.get('id') ?? '';
-  const handleOpenChange = (open: boolean) => {
-    if (!open) router.back();
-  };
+  // const searchParams = useSearchParams();
+  // const isModal = searchParams?.get('modal') === 'true';
 
   return (
-    <Dialog defaultOpen onOpenChange={handleOpenChange}>
-      <DialogContent>
+    <Dialog open={true} onOpenChange={(open) => !open && router.back()}>
+      <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Photo Card Dialog</DialogTitle>
-          <DialogDescription>Description</DialogDescription>
+          <DialogTitle>Photo Detail</DialogTitle>
+          <DialogDescription>View photo details</DialogDescription>
         </DialogHeader>
-        <div className="flex justify-center p-8">
-          <PhotoCard id={id} modal={true} />
-        </div>
+        {/* <PhotoCard id={id} /> */}
+        <p>Photo Card Component Missing (ID: {id})</p>
       </DialogContent>
     </Dialog>
   );
