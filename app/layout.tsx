@@ -41,6 +41,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 60;
+
 import { MouseSpotlight } from '@/shared/ui/mouse-spotlight';
 import { Texture } from '@/shared/ui/texture';
 
