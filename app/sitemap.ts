@@ -25,6 +25,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/thoughts`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
   ] as const;
 
   // 블로그 게시물 가져오기
@@ -38,6 +44,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  // 블로그 게시물 가져오기
+  const { posts: thoughts } = await getPublishedPosts({ pageSize: 100, isThought: true });
+
+  // 블로그 게시물 URL 생성
+  const thoughtsPosts = thoughts.map((post) => ({
+    url: `${baseUrl}/thoughts/${post.slug}`,
+    lastModified: post.modifiedDate ? new Date(post.modifiedDate) : new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }));
+
   // 정적 페이지와 블로그 게시물 결합
-  return [...staticPages, ...blogPosts];
+  return [...staticPages, ...blogPosts, ...thoughtsPosts];
 }
