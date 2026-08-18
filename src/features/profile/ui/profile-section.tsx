@@ -45,8 +45,6 @@ export default function ProfileSection() {
               </Button>
             ))}
           </div>
-
-          <p className="bg-primary/10 rounded p-2 text-center text-sm">Work Hard Play Hard ✨</p>
         </div>
       </CardContent>
     </Card>
