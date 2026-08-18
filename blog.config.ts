@@ -1,5 +1,7 @@
 const FALLBACK_SITE_URL = 'https://example.com';
 
+export const POSTS_PAGE_SIZE = 10;
+
 export const BLOG_CONFIG = {
   name: '<정은쓰 블로그 />',
   description: '프론트엔드 개발과 관련된 다양한 지식과 경험을 공유하는 블로그입니다.',

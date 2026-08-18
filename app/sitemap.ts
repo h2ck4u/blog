@@ -1,9 +1,10 @@
 import { MetadataRoute } from 'next';
 import { getPublishedPosts } from '@/shared/lib/notion';
+import { BLOG_CONFIG } from '@/blog.config';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 기본 URL
-  const baseUrl = `${process.env.NEXT_PUBLIC_SITE_URL}`;
+  const baseUrl = BLOG_CONFIG.siteUrl;
 
   // 정적 페이지 목록
   const staticPages = [
@@ -44,17 +45,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  // 블로그 게시물 가져오기
-  const { posts: thoughts } = await getPublishedPosts({ pageSize: 100, isThought: true });
-
-  // 블로그 게시물 URL 생성
-  const thoughtsPosts = thoughts.map((post) => ({
-    url: `${baseUrl}/thoughts/${post.slug}`,
-    lastModified: post.modifiedDate ? new Date(post.modifiedDate) : new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
-  }));
+  // NOTE: thoughts는 /thoughts 목록 페이지에서만 노출되고 개별 상세 라우트(/thoughts/[slug])가
+  // 존재하지 않으므로 여기서 개별 URL을 생성하지 않는다. 상세 라우트가 추가되면 다시 포함할 것.
 
   // 정적 페이지와 블로그 게시물 결합
-  return [...staticPages, ...blogPosts, ...thoughtsPosts];
+  return [...staticPages, ...blogPosts];
 }
