@@ -21,6 +21,9 @@ const nextConfig: NextConfig = {
       {
         hostname: 'www.notion.so',
       },
+      {
+        hostname: 'avatars.githubusercontent.com',
+      },
     ],
   },
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'mdx', 'md'],

@@ -9,6 +9,7 @@ export const BLOG_CONFIG = {
   author: {
     name: '정은쓰',
     role: 'Frontend Engineer',
+    avatarUrl: 'https://avatars.githubusercontent.com/u/11675666?v=4',
   },
   social: {
     github: 'https://github.com/h2ck4u',
