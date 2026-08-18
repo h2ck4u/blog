@@ -1,2 +1,2 @@
-export { AboutPage, AboutPage as default } from './ui/about-page';
+export { AboutPage, AboutPage as default, metadata } from './ui/about-page';
 
