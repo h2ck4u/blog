@@ -53,6 +53,11 @@ export async function generateMetadata({
       authors: post.author || BLOG_CONFIG.author.name,
       tags: post.tags,
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+    },
   };
 }
 
@@ -105,6 +110,26 @@ export async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.description,
+    image: post.coverImage || undefined,
+    datePublished: post.date,
+    dateModified: post.modifiedDate,
+    author: {
+      '@type': 'Person',
+      name: post.author || BLOG_CONFIG.author.name,
+    },
+    keywords: post.tags?.join(', '),
+    url: `${BLOG_CONFIG.siteUrl}/blog/${post.slug}`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${BLOG_CONFIG.siteUrl}/blog/${post.slug}`,
+    },
+  };
+
   const { data } = await compile(markdown, {
     rehypePlugins: [
       withSlugs,
@@ -118,6 +143,10 @@ export async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <div className="container py-6 md:py-8 lg:py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="grid grid-cols-1 gap-4 md:grid-cols-[240px_1fr_240px] md:gap-8">
         <aside className="hidden md:block">{/* 추후 콘텐츠 추가 */}</aside>
         <section>
