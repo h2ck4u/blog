@@ -8,6 +8,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, use } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { POSTS_PAGE_SIZE } from '@/blog.config';
 
 interface PostListProps {
   postsPromise: Promise<GetPublishedPostsResponse>;
@@ -19,7 +20,7 @@ export default function PostList({ postsPromise, isThought }: PostListProps) {
   const searchParams = useSearchParams();
   const tag = searchParams?.get('tag');
   const sort = searchParams?.get('sort');
-  const pageSize = 2;
+  const pageSize = POSTS_PAGE_SIZE;
 
   const fetchPosts = async ({ pageParam }: { pageParam: string | undefined }) => {
     const params = new URLSearchParams();

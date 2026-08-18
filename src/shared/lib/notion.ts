@@ -6,6 +6,7 @@ import type {
 } from '@notionhq/client/build/src/api-endpoints';
 import { NotionToMarkdown } from 'notion-to-md';
 import { unstable_cache } from 'next/cache';
+import { POSTS_PAGE_SIZE } from '@/blog.config';
 
 export const notion = new Client({
   auth: process.env.NOTION_TOKEN,
@@ -57,7 +58,7 @@ function getPostMetadata(page: PageObjectResponse): Post {
   };
 }
 
-export const getPostBySlug = async (
+const fetchPostBySlug = async (
   slug: string
 ): Promise<{
   markdown: string;
@@ -98,6 +99,17 @@ export const getPostBySlug = async (
     post: getPostMetadata(response.results[0] as PageObjectResponse),
   };
 };
+
+export const getPostBySlug = async (
+  slug: string
+): Promise<{
+  markdown: string;
+  post: Post | null;
+}> =>
+  unstable_cache(() => fetchPostBySlug(slug), [`post-${slug}`], {
+    tags: ['posts', `post-${slug}`],
+    revalidate: 60,
+  })();
 
 export interface GetPublishedPostsParams {
   tag?: string;
@@ -175,7 +187,13 @@ export const fetchPublishedPosts = async ({
 export const getPublishedPosts = async (
   params: GetPublishedPostsParams = {}
 ): Promise<GetPublishedPostsResponse> => {
-  const { tag = '전체', sort = 'latest', pageSize = 2, startCursor, isThought } = params;
+  const {
+    tag = '전체',
+    sort = 'latest',
+    pageSize = POSTS_PAGE_SIZE,
+    startCursor,
+    isThought,
+  } = params;
 
   // 파라미터를 기반으로 고유한 캐시 키 생성 (JSON.stringify 사용)
   const cacheKey = JSON.stringify({ tag, sort, pageSize, startCursor, isThought });
