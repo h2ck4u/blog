@@ -10,7 +10,6 @@ interface HomeProps {
 }
 
 export const metadata: Metadata = {
-  title: 'Home',
   description: `프론트엔드 개발자 ${BLOG_CONFIG.author.name}의 블로그입니다. ${BLOG_CONFIG.description}`,
   alternates: {
     canonical: '/',
